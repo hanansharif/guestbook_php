@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mysql_server:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  phpmyadmin_container:
+    image: phpmyadmin
+    ports:
+      - 80:80
+    depends_on:
+      - mysql_server
+    # links:
+    #   - mysql_server:db
+  php-app:
+    image: php:8.0-apache
+    ports:
+      - 8080:80
+    volumes:
+      - /Users/abdulhanansharif/Desktop/php:/var/www/html
+    depends_on:
+      - mysql_server
+    # links:
+    #   - mysql_server:db
