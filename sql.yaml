@@ -3,9 +3,13 @@ services:
   mysql_server:
     image: mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - /Users/abdulhanansharif/Desktop/php:/var/www/html
+    # volumes:
+    #   - mysql-data:/var/lib/mysql # Separate volume for MySQL data
   phpmyadmin_container:
     image: phpmyadmin
     ports:
@@ -18,9 +22,27 @@ services:
     image: php:8.0-apache
     ports:
       - 8080:80
+    # volumes:
+    #   - php-app-code:/var/www/html # Separate volume for PHP app code
     volumes:
       - /Users/abdulhanansharif/Desktop/php:/var/www/html
     depends_on:
       - mysql_server
     # links:
     #   - mysql_server:db
+    # Install mysqli extension during container startup
+    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
+# volumes:
+#   mysql-data:
+#     driver: local
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: /Users/abdulhanansharif/Desktop/php
+#   php-app-code:
+#     driver: local
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: /Users/abdulhanansharif/Desktop/php
+#       # - /Users/abdulhanansharif/Desktop/php:/var/www/html
