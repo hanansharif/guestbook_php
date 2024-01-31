@@ -7,7 +7,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - /Users/abdulhanansharif/Desktop/php:/var/www/html
+      - /Users/abdulhanansharif/Desktop/php/mysql:/var/lib/mysql
     # volumes:
     #   - mysql-data:/var/lib/mysql # Separate volume for MySQL data
   phpmyadmin_container:
